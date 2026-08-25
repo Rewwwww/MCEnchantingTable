@@ -1,0 +1,5 @@
+{
+  "OPTION_MCENCHANTINGTABLE_ENCHANT.name": "Enchant",
+  "OPTION_MCENCHANTINGTABLE_ENCHANT.description": "[purple]Enchant[/purple] and heal for 10% of your Max HP.",
+  "OPTION_MCENCHANTINGTABLE_ENCHANT.descriptionDisabled": "[red]You have no cards that can be Enchanted.[/red]"
+}

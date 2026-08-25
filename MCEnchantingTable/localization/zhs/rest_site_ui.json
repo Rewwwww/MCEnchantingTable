@@ -1,0 +1,5 @@
+{
+  "OPTION_MCENCHANTINGTABLE_ENCHANT.name": "附魔",
+  "OPTION_MCENCHANTINGTABLE_ENCHANT.description": "[purple]附魔[/purple]并回复最大生命值的10%。\uFE00",
+  "OPTION_MCENCHANTINGTABLE_ENCHANT.descriptionDisabled": "[red]你没有可以附魔的卡牌。[/red]"
+}

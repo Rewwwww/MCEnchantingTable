@@ -1,0 +1,17 @@
+{
+  "MCENCHANTINGTABLE-CONFIG_TITLE.title": "MC附魔台",
+  "MCENCHANTINGTABLE-NORMAL_COMBAT_PROGRESS.title": "普通战斗进度",
+  "MCENCHANTINGTABLE-BOOK_REWARDS.title": "书籍掉落",
+  "MCENCHANTINGTABLE-ACT1_NORMAL_COMBATS_PER_REWARD.title": "第一幕每次书籍奖励所需普通战",
+  "MCENCHANTINGTABLE-ACT1_NORMAL_COMBATS_PER_REWARD.hover.desc": "设置第一幕触发一次普通战书籍奖励所需的符合条件的普通战胜利次数。\uFE00",
+  "MCENCHANTINGTABLE-ACT2_NORMAL_COMBATS_PER_REWARD.title": "第二幕每次书籍奖励所需普通战",
+  "MCENCHANTINGTABLE-ACT2_NORMAL_COMBATS_PER_REWARD.hover.desc": "设置第二幕触发一次普通战书籍奖励所需的符合条件的普通战胜利次数。\uFE00",
+  "MCENCHANTINGTABLE-ACT3_NORMAL_COMBATS_PER_REWARD.title": "第三幕每次书籍奖励所需普通战",
+  "MCENCHANTINGTABLE-ACT3_NORMAL_COMBATS_PER_REWARD.hover.desc": "设置第三幕触发一次普通战书籍奖励所需的符合条件的普通战胜利次数。\uFE00",
+  "MCENCHANTINGTABLE-NORMAL_COMBAT_BOOK_REWARD_AMOUNT.title": "普通战书籍数量",
+  "MCENCHANTINGTABLE-NORMAL_COMBAT_BOOK_REWARD_AMOUNT.hover.desc": "设置普通战斗进度达成时生成的书籍数量。\uFE00",
+  "MCENCHANTINGTABLE-ELITE_BOOK_REWARD_AMOUNT.title": "精英战书籍数量",
+  "MCENCHANTINGTABLE-ELITE_BOOK_REWARD_AMOUNT.hover.desc": "设置符合条件的精英战胜利后生成的书籍数量。\uFE00设为0可禁用精英战书籍奖励。\uFE00",
+  "MCENCHANTINGTABLE-BOSS_BOOK_REWARD_AMOUNT.title": "Boss战书籍数量",
+  "MCENCHANTINGTABLE-BOSS_BOOK_REWARD_AMOUNT.hover.desc": "设置Boss战胜利后生成的基础书籍数量。\uFE00幕末普通战余数奖励会在此基础上额外计算。\uFE00"
+}

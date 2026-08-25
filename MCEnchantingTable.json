@@ -1,0 +1,14 @@
+﻿{
+  "id": "MCEnchantingTable",
+  "name": "MC附魔台",
+  "author": "然而问",
+  "description": "Brings a Minecraft-inspired enchanting progression system to Slay the Spire 2. Earn books through combat, unlock stronger enchantments as your collection grows, and customize key cards through Ancients, Rest Sites, and special events.",
+  "version": "v0.1.0",
+  "min_game_version": "0.107.0",
+  "has_pck": true,
+  "has_dll": true,
+  "dependencies": [
+    {"id": "BaseLib", "min_version": "3.4.5"}
+  ],
+  "affects_gameplay": true
+}

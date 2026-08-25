@@ -1,0 +1,17 @@
+{
+  "MCENCHANTINGTABLE-CONFIG_TITLE.title": "MC Enchanting Table",
+  "MCENCHANTINGTABLE-NORMAL_COMBAT_PROGRESS.title": "Normal Combat Progress",
+  "MCENCHANTINGTABLE-BOOK_REWARDS.title": "Book Rewards",
+  "MCENCHANTINGTABLE-ACT1_NORMAL_COMBATS_PER_REWARD.title": "Act 1 Combats per Book Reward",
+  "MCENCHANTINGTABLE-ACT1_NORMAL_COMBATS_PER_REWARD.hover.desc": "Sets the number of eligible normal combat victories required to trigger one book reward in Act 1.",
+  "MCENCHANTINGTABLE-ACT2_NORMAL_COMBATS_PER_REWARD.title": "Act 2 Combats per Book Reward",
+  "MCENCHANTINGTABLE-ACT2_NORMAL_COMBATS_PER_REWARD.hover.desc": "Sets the number of eligible normal combat victories required to trigger one book reward in Act 2.",
+  "MCENCHANTINGTABLE-ACT3_NORMAL_COMBATS_PER_REWARD.title": "Act 3 Combats per Book Reward",
+  "MCENCHANTINGTABLE-ACT3_NORMAL_COMBATS_PER_REWARD.hover.desc": "Sets the number of eligible normal combat victories required to trigger one book reward in Act 3.",
+  "MCENCHANTINGTABLE-NORMAL_COMBAT_BOOK_REWARD_AMOUNT.title": "Books per Normal Combat Reward",
+  "MCENCHANTINGTABLE-NORMAL_COMBAT_BOOK_REWARD_AMOUNT.hover.desc": "Sets the number of books offered when the normal combat counter is completed.",
+  "MCENCHANTINGTABLE-ELITE_BOOK_REWARD_AMOUNT.title": "Books per Elite Victory",
+  "MCENCHANTINGTABLE-ELITE_BOOK_REWARD_AMOUNT.hover.desc": "Sets the number of books offered after an eligible elite victory. Set to 0 to disable elite book rewards.",
+  "MCENCHANTINGTABLE-BOSS_BOOK_REWARD_AMOUNT.title": "Books per Boss Victory",
+  "MCENCHANTINGTABLE-BOSS_BOOK_REWARD_AMOUNT.hover.desc": "Sets the base number of books offered after a boss victory. Any end-of-act normal combat remainder reward is added separately."
+}

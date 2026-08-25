@@ -32,6 +32,8 @@ internal sealed partial class EnchantScreen : Control, IOverlayScreen
 
     private readonly Player _player;
     private readonly EnchantSession _session;
+    private readonly Func<bool>? _validateOpportunity;
+    private readonly Func<Task<bool>>? _commitOpportunity;
     private readonly Func<Task>? _afterEnchantApplied;
     private readonly TaskCompletionSource<bool> _completionSource = new();
     private Control _bookRoot = null!;
@@ -48,10 +50,14 @@ internal sealed partial class EnchantScreen : Control, IOverlayScreen
     private EnchantScreen(
         Player player,
         EnchantSession session,
+        Func<bool>? validateOpportunity,
+        Func<Task<bool>>? commitOpportunity,
         Func<Task>? afterEnchantApplied)
     {
         _player = player;
         _session = session;
+        _validateOpportunity = validateOpportunity;
+        _commitOpportunity = commitOpportunity;
         _afterEnchantApplied = afterEnchantApplied;
         Name = "MCEnchantingTable_EnchantScreen";
     }
@@ -65,6 +71,8 @@ internal sealed partial class EnchantScreen : Control, IOverlayScreen
     public static async Task<bool> Show(
         Player player,
         EnchantSession session,
+        Func<bool>? validateOpportunity = null,
+        Func<Task<bool>>? commitOpportunity = null,
         Func<Task>? afterEnchantApplied = null)
     {
         if (NOverlayStack.Instance is null)
@@ -72,7 +80,12 @@ internal sealed partial class EnchantScreen : Control, IOverlayScreen
             return false;
         }
 
-        EnchantScreen screen = new(player, session, afterEnchantApplied);
+        EnchantScreen screen = new(
+            player,
+            session,
+            validateOpportunity,
+            commitOpportunity,
+            afterEnchantApplied);
         NOverlayStack.Instance.Push(screen);
         return await screen._completionSource.Task;
     }
@@ -262,10 +275,10 @@ internal sealed partial class EnchantScreen : Control, IOverlayScreen
         int bookCount = book?.BookCount ?? 0;
         IReadOnlyList<MCEnchantmentCandidate> candidates = _session.GetOrCreateCandidates(
             card,
-            () => _candidateGenerator.Generate(
+            rng => _candidateGenerator.Generate(
                 card,
                 bookCount,
-                _player.RunState.Rng.Niche));
+                rng));
 
         for (int i = 0; i < candidates.Count && i < _optionSlots.Count; i++)
         {
@@ -323,6 +336,8 @@ internal sealed partial class EnchantScreen : Control, IOverlayScreen
         if (!await EnchantController.TryApplyCardEnchant(
                 card,
                 candidate,
+                _validateOpportunity,
+                _commitOpportunity,
                 _afterEnchantApplied))
         {
             _selectedCandidate = null;

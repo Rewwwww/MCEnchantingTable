@@ -212,7 +212,7 @@ internal sealed partial class AncientEnchantOption : Button
 
         _visuals.Position = finalVisualPosition + new Vector2(0f, EntranceOffsetY);
         _visuals.Modulate = StsColors.transparentWhite;
-        MouseFilter = MouseFilterEnum.Ignore;
+        MouseFilter = MouseFilterEnum.Stop;
 
         _entranceTween?.Kill();
         _entranceTween = CreateTween().SetParallel();
@@ -228,7 +228,6 @@ internal sealed partial class AncientEnchantOption : Button
             {
                 _visuals.Position = finalVisualPosition;
                 _visuals.Modulate = Colors.White;
-                MouseFilter = MouseFilterEnum.Stop;
             }
         };
     }
@@ -269,23 +268,26 @@ internal sealed partial class AncientEnchantOption : Button
 
     private async Task OpenEnchantScreen()
     {
-        if (_ancient.Owner is not { } player)
+        if (_ancient.Owner is not { } player ||
+            !AncientEnchantController.TryCreateEncounterKey(_ancient, out string encounterKey))
         {
             RefreshState();
             return;
         }
 
-        bool opportunityConsumed = false;
+        _session.Configure(player, encounterKey);
         bool confirmed = await EnchantScreen.Show(
             player,
             _session,
-            () =>
+            () => AncientEnchantController.CanEnchant(_ancient) &&
+                !AncientEnchantController.IsOpportunityUsed(_ancient),
+            async () =>
             {
-                opportunityConsumed = EnchantController.BeginAncientEnchant(_ancient);
+                bool committed = await EnchantController.CommitAncientEnchant(_ancient);
                 RefreshState();
-                return Task.CompletedTask;
+                return committed;
             });
-        if (confirmed && opportunityConsumed)
+        if (confirmed)
         {
             _session.Clear();
         }

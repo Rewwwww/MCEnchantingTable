@@ -31,6 +31,8 @@ public sealed class StrangeBook : CustomRelicModel, ICustomUiModel
 
     private string _lastAncientEnchantEncounterKey = string.Empty;
 
+    private string _lastRestSiteEnchantEncounterKey = string.Empty;
+
     public override RelicRarity Rarity => RelicRarity.Event;
 
     public override bool ShowCounter => true;
@@ -80,6 +82,8 @@ public sealed class StrangeBook : CustomRelicModel, ICustomUiModel
 
     public event Action? AncientEnchantOpportunityChanged;
 
+    public event Action? RestSiteEnchantOpportunityChanged;
+
     [SavedProperty]
     public string LastAncientEnchantEncounterKey
     {
@@ -94,6 +98,23 @@ public sealed class StrangeBook : CustomRelicModel, ICustomUiModel
 
             _lastAncientEnchantEncounterKey = value;
             AncientEnchantOpportunityChanged?.Invoke();
+        }
+    }
+
+    [SavedProperty]
+    public string LastRestSiteEnchantEncounterKey
+    {
+        get => _lastRestSiteEnchantEncounterKey;
+        private set
+        {
+            AssertMutable();
+            if (string.Equals(_lastRestSiteEnchantEncounterKey, value, StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            _lastRestSiteEnchantEncounterKey = value;
+            RestSiteEnchantOpportunityChanged?.Invoke();
         }
     }
 
@@ -204,6 +225,22 @@ public sealed class StrangeBook : CustomRelicModel, ICustomUiModel
         }
 
         LastAncientEnchantEncounterKey = encounterKey;
+        return true;
+    }
+
+    public bool HasRestSiteEnchantOpportunity(string encounterKey) =>
+        !string.IsNullOrEmpty(encounterKey) &&
+        !string.Equals(LastRestSiteEnchantEncounterKey, encounterKey, StringComparison.Ordinal);
+
+    public bool TryUseRestSiteEnchantOpportunity(string encounterKey)
+    {
+        AssertMutable();
+        if (!HasRestSiteEnchantOpportunity(encounterKey))
+        {
+            return false;
+        }
+
+        LastRestSiteEnchantEncounterKey = encounterKey;
         return true;
     }
 

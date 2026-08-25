@@ -1,5 +1,8 @@
 using MegaCrit.Sts2.Core.Entities.Multiplayer;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Random;
 
 namespace MCEnchantingTable.MCEnchantingTableCode.Enchanting;
 
@@ -10,10 +13,28 @@ namespace MCEnchantingTable.MCEnchantingTableCode.Enchanting;
 internal sealed class EnchantSession
 {
     private readonly Dictionary<uint, IReadOnlyList<MCEnchantmentCandidate>> _candidateCache = [];
+    private string? _encounterKey;
+    private ulong _encounterSeed;
+
+    public void Configure(Player player, string encounterKey)
+    {
+        if (string.Equals(_encounterKey, encounterKey, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        _candidateCache.Clear();
+        _encounterKey = encounterKey;
+        _encounterSeed = unchecked((ulong)(
+            (long)player.RunState.Rng.Seed +
+            player.RunState.GetPlayerSlotIndex(player) +
+            (long)StringHelper.GetDeterministicHashCode(
+                $"MCEnchantingTable:EnchantSession:{encounterKey}")));
+    }
 
     public IReadOnlyList<MCEnchantmentCandidate> GetOrCreateCandidates(
         CardModel card,
-        Func<IReadOnlyList<MCEnchantmentCandidate>> generate)
+        Func<Rng, IReadOnlyList<MCEnchantmentCandidate>> generate)
     {
         uint deckIndex = NetDeckCard.FromModel(card).DeckIndex;
         if (_candidateCache.TryGetValue(deckIndex, out IReadOnlyList<MCEnchantmentCandidate>? cached))
@@ -21,7 +42,13 @@ internal sealed class EnchantSession
             return cached;
         }
 
-        IReadOnlyList<MCEnchantmentCandidate> candidates = generate().ToArray();
+        if (_encounterKey is null)
+        {
+            throw new InvalidOperationException("EnchantSession must be configured before generating candidates.");
+        }
+
+        Rng cardRng = new(unchecked(_encounterSeed + deckIndex));
+        IReadOnlyList<MCEnchantmentCandidate> candidates = generate(cardRng).ToArray();
         _candidateCache.Add(deckIndex, candidates);
         return candidates;
     }

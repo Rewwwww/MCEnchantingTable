@@ -16,12 +16,14 @@ namespace MCEnchantingTable.MCEnchantingTableCode.Enchanting;
 /// </summary>
 internal static class EnchantController
 {
-    public static bool BeginAncientEnchant(AncientEventModel ancient) =>
-        AncientEnchantController.BeginEnchant(ancient);
+    public static Task<bool> CommitAncientEnchant(AncientEventModel ancient) =>
+        AncientEnchantController.CommitEnchant(ancient);
 
     public static async Task<bool> TryApplyCardEnchant(
         CardModel card,
         MCEnchantmentCandidate candidate,
+        Func<bool>? validateOpportunity = null,
+        Func<Task<bool>>? commitOpportunity = null,
         Func<Task>? afterEnchantApplied = null)
     {
         try
@@ -37,6 +39,14 @@ internal static class EnchantController
                 return false;
             }
 
+            if (validateOpportunity is not null && !validateOpportunity())
+            {
+                MainFile.Logger.Warn(
+                    $"Enchant confirmation rejected because the opportunity is no longer available: " +
+                    $"card={card.Id}, enchantment={candidate.EnchantmentModelId}, amount={candidate.Amount}.");
+                return false;
+            }
+
             EnchantmentModel mutable = canonical.ToMutable();
             EnchantmentModel? applied = CardCmd.Enchant(
                 mutable,
@@ -46,6 +56,14 @@ internal static class EnchantController
             {
                 MainFile.Logger.Error(
                     $"CardCmd.Enchant returned null: card={card.Id}, " +
+                    $"enchantment={candidate.EnchantmentModelId}, amount={candidate.Amount}.");
+                return false;
+            }
+
+            if (commitOpportunity is not null && !await commitOpportunity())
+            {
+                MainFile.Logger.Error(
+                    $"Enchant opportunity commit failed after CardCmd.Enchant: card={card.Id}, " +
                     $"enchantment={candidate.EnchantmentModelId}, amount={candidate.Amount}.");
                 return false;
             }

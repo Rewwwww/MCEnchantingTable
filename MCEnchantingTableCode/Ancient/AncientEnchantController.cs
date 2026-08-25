@@ -3,27 +3,26 @@ using BaseLib.Abstracts;
 using MCEnchantingTable.MCEnchantingTableCode.Models;
 using MCEnchantingTable.MCEnchantingTableCode.Networking;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Multiplayer.Game;
 using MegaCrit.Sts2.Core.Runs;
-using MegaCrit.Sts2.Core.Saves;
 
 namespace MCEnchantingTable.MCEnchantingTableCode.Ancient;
 
 internal static class AncientEnchantController
 {
-    public static bool BeginEnchant(AncientEventModel ancient)
+    public static Task<bool> CommitEnchant(AncientEventModel ancient)
     {
         Player? player = ancient.Owner;
         if (player is null || !TryCreateEncounterKey(ancient, out string encounterKey))
         {
-            return false;
+            return Task.FromResult(false);
         }
 
         if (!TryApplyUse(player, encounterKey))
         {
-            return false;
+            MainFile.Logger.Error($"Ancient enchant opportunity commit failed: encounter={encounterKey}.");
+            return Task.FromResult(false);
         }
 
         if (RunManager.Instance.NetService.Type.IsMultiplayer())
@@ -36,7 +35,7 @@ internal static class AncientEnchantController
             });
         }
 
-        return true;
+        return Task.FromResult(true);
     }
 
     public static bool CanEnchant(AncientEventModel ancient)
@@ -92,7 +91,7 @@ internal static class AncientEnchantController
         int row = runState.CurrentMapCoord?.row ?? -1;
         encounterKey = string.Create(
             CultureInfo.InvariantCulture,
-            $"{runState.CurrentActIndex}:{column}:{row}:{runState.TotalFloor}:{ancient.Id}");
+            $"{runState.CurrentActIndex}:{column}:{row}:{ancient.Id}");
         return true;
     }
 
@@ -104,7 +103,6 @@ internal static class AncientEnchantController
             return false;
         }
 
-        TaskHelper.RunSafely(SaveManager.Instance.SaveRun(null));
         return true;
     }
 

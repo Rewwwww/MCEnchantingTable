@@ -17,9 +17,12 @@ public sealed class EnchantRestSiteOption : RestSiteOption
 
     public override string OptionId => Id;
 
-    internal EnchantButtonState State => Owner.Deck.Cards.Any(MCEnchantmentConfig.CanAnyEnchant)
-        ? EnchantButtonState.Available
-        : EnchantButtonState.NoValidCard;
+    internal EnchantButtonState State => RestSiteEnchantController.IsOpportunityUsed(Owner)
+        ? EnchantButtonState.AlreadyUsed
+        : RestSiteEnchantController.CanEnchant(Owner) &&
+          Owner.Deck.Cards.Any(MCEnchantmentConfig.CanAnyEnchant)
+            ? EnchantButtonState.Available
+            : EnchantButtonState.NoValidCard;
 
     public override bool IsEnabled => State == EnchantButtonState.Available;
 
@@ -42,7 +45,18 @@ public sealed class EnchantRestSiteOption : RestSiteOption
 
     public override async Task<bool> OnSelect()
     {
-        if (!await EnchantScreen.Show(Owner, _session, HealAfterEnchant))
+        if (!RestSiteEnchantController.TryCreateEncounterKey(Owner, out string encounterKey))
+        {
+            return false;
+        }
+
+        _session.Configure(Owner, encounterKey);
+        if (!await EnchantScreen.Show(
+                Owner,
+                _session,
+                () => RestSiteEnchantController.CanEnchant(Owner),
+                () => RestSiteEnchantController.CommitEnchant(Owner),
+                HealAfterEnchant))
         {
             return false;
         }

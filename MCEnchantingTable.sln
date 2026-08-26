@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCEnchantingTable", "MCEnchantingTable.csproj", "{45DACC51-6A7B-4653-91E4-FAE12D5987AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCEnchantingTable.Content", "MCEnchantingTable.Content.csproj", "{D1765A67-63F6-4AE4-8C88-8788AD07DC2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{45DACC51-6A7B-4653-91E4-FAE12D5987AB}.Release|x64.Build.0 = Debug|Any CPU
 		{45DACC51-6A7B-4653-91E4-FAE12D5987AB}.Release|x86.ActiveCfg = Debug|Any CPU
 		{45DACC51-6A7B-4653-91E4-FAE12D5987AB}.Release|x86.Build.0 = Debug|Any CPU
+		{D1765A67-63F6-4AE4-8C88-8788AD07DC2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1765A67-63F6-4AE4-8C88-8788AD07DC2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1765A67-63F6-4AE4-8C88-8788AD07DC2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1765A67-63F6-4AE4-8C88-8788AD07DC2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

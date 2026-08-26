@@ -179,22 +179,6 @@ public sealed class StrangeBook : CustomRelicModel, ICustomUiModel
         return Task.CompletedTask;
     }
 
-    public override Task BeforeCombatRewardOffered(RewardsSet rewards, CombatRoom room)
-    {
-        if (rewards.Player == Owner && room.ExtraRewards.TryGetValue(Owner, out List<Reward>? extraRewards))
-        {
-            foreach (BookReward reward in extraRewards.OfType<BookReward>())
-            {
-                if (!rewards.Rewards.Contains(reward))
-                {
-                    rewards.Rewards.Add(reward);
-                }
-            }
-        }
-
-        return Task.CompletedTask;
-    }
-
     public void AddBooks(int amount)
     {
         AssertMutable();

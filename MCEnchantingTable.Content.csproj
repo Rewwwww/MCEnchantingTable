@@ -1,0 +1,21 @@
+<Project Sdk="Godot.NET.Sdk/4.5.1">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework><AssemblyName>MCEnchantingTable.Content</AssemblyName><RootNamespace>MCEnchantingTable</RootNamespace><ImplicitUsings>true</ImplicitUsings><Nullable>enable</Nullable><AllowUnsafeBlocks>true</AllowUnsafeBlocks><NoWarn>$(NoWarn);MSB3270</NoWarn><GodotProjectDir>$(MSBuildProjectDirectory)</GodotProjectDir><GodotDisabledSourceGenerators>GodotPluginsInitializer</GodotDisabledSourceGenerators>
+    <StS2Target Condition="'$(StS2Target)' == ''">Release</StS2Target>
+    <BetaSts2DataDir Condition="'$(BetaSts2DataDir)' == ''">$(MSBuildProjectDirectory)\..\StS2_Decompiled\.godot\mono\temp\bin\Debug</BetaSts2DataDir>
+    <ReleaseSts2DataDir Condition="'$(ReleaseSts2DataDir)' == ''">$(SharedGameDataDir)</ReleaseSts2DataDir>
+    <SharedGameDataDir Condition="'$(SharedGameDataDir)' == ''">D:\AAAPKBC\Apps\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64</SharedGameDataDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(StS2Target)' == 'Beta'"><Sts2ReferenceDir>$(BetaSts2DataDir)</Sts2ReferenceDir><DefineConstants>$(DefineConstants);STS2_BETA</DefineConstants><CompatibilityFamily>beta</CompatibilityFamily></PropertyGroup>
+  <PropertyGroup Condition="'$(StS2Target)' == 'Release'"><Sts2ReferenceDir>$(ReleaseSts2DataDir)</Sts2ReferenceDir><DefineConstants>$(DefineConstants);STS2_RELEASE</DefineConstants><CompatibilityFamily>release</CompatibilityFamily></PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute"><_Parameter1>MCEnchantingTableCompatibilityFamily</_Parameter1><_Parameter2>$(CompatibilityFamily)</_Parameter2></AssemblyAttribute>
+    <Reference Include="sts2"><HintPath>$(Sts2ReferenceDir)\sts2.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(SharedGameDataDir)\0Harmony.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="GodotSharp"><HintPath>$(SharedGameDataDir)\GodotSharp.dll</HintPath><Private>false</Private></Reference>
+    <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.4.5" PrivateAssets="All" /><PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.1.9" PrivateAssets="All" />
+    <AdditionalFiles Include="MCEnchantingTable\localization\**\*.json" />
+    <Compile Remove="Loader\**\*.cs" /><Compile Remove="MCEnchantingTable\**\*.cs" /><EmbeddedResource Remove="MCEnchantingTable\**" /><None Remove="MCEnchantingTable\**" />
+  </ItemGroup>
+  <Target Name="ValidateStS2Target" BeforeTargets="PrepareForBuild"><Error Text="StS2Target must be Beta or Release." Condition="'$(StS2Target)' != 'Beta' And '$(StS2Target)' != 'Release'" /><Error Text="sts2.dll not found for StS2Target=$(StS2Target) at '$(Sts2ReferenceDir)'." Condition="!Exists('$(Sts2ReferenceDir)\sts2.dll')" /></Target>
+</Project>

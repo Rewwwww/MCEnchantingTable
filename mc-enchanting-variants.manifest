@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "variants": [
+    { "id": "beta", "family": "beta", "assembly": "lib/beta/MCEnchantingTable.Content.dll" },
+    { "id": "release", "family": "release", "assembly": "lib/release/MCEnchantingTable.Content.dll" }
+  ]
+}

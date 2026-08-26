@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Random;
+using MCEnchantingTable.MCEnchantingTableCode.Compatibility;
 
 namespace MCEnchantingTable.MCEnchantingTableCode.Enchanting;
 
@@ -26,7 +27,7 @@ internal sealed class EnchantSession
         _candidateCache.Clear();
         _encounterKey = encounterKey;
         _encounterSeed = unchecked((ulong)(
-            (long)player.RunState.Rng.Seed +
+            (long)RngCompat.ReadRunSeed(player) +
             player.RunState.GetPlayerSlotIndex(player) +
             (long)StringHelper.GetDeterministicHashCode(
                 $"MCEnchantingTable:EnchantSession:{encounterKey}")));
@@ -47,7 +48,7 @@ internal sealed class EnchantSession
             throw new InvalidOperationException("EnchantSession must be configured before generating candidates.");
         }
 
-        Rng cardRng = new(unchecked(_encounterSeed + deckIndex));
+        Rng cardRng = RngCompat.CreateDeterministic(unchecked(_encounterSeed + deckIndex));
         IReadOnlyList<MCEnchantmentCandidate> candidates = generate(cardRng).ToArray();
         _candidateCache.Add(deckIndex, candidates);
         return candidates;

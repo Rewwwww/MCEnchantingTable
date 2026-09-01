@@ -9,9 +9,14 @@ public readonly record struct BookRulesSnapshot(
     int Act3NormalCombatsPerReward,
     int NormalCombatBookRewardAmount,
     int EliteBookRewardAmount,
-    int BossBookRewardAmount)
+    int BossBookRewardAmount,
+    bool RemainderCompensation)
 {
-    public static BookRulesSnapshot Defaults => new(1, 2, 3, 1, 1, 2);
+    public static BookRulesSnapshot Defaults => FromSettings(DefaultSettingsFactory.CreateDefaultConfig().BookGain);
+
+    private static BookRulesSnapshot FromSettings(BookGainSettings b) => new(
+        b.Act1NormalCombatsPerReward, b.Act2NormalCombatsPerReward, b.Act3NormalCombatsPerReward,
+        b.NormalCombatBookRewardAmount, b.EliteBookRewardAmount, b.BossBookRewardAmount, b.RemainderCompensation);
 
     public static BookRulesSnapshot FromGlobalSettings() => new BookRulesSnapshot(
         GameplaySettings.Act1NormalCombatsPerReward,
@@ -19,7 +24,8 @@ public readonly record struct BookRulesSnapshot(
         GameplaySettings.Act3NormalCombatsPerReward,
         GameplaySettings.NormalCombatBookRewardAmount,
         GameplaySettings.EliteBookRewardAmount,
-        GameplaySettings.BossBookRewardAmount).Sanitized();
+        GameplaySettings.BossBookRewardAmount,
+        GameplaySettings.Current.BookGain.RemainderCompensation).Sanitized();
 
     public int GetNormalCombatsPerReward(int actIndex) => actIndex switch
     {
@@ -35,7 +41,7 @@ public readonly record struct BookRulesSnapshot(
         Math.Clamp(Act3NormalCombatsPerReward, 1, 20),
         Math.Clamp(NormalCombatBookRewardAmount, 0, 20),
         Math.Clamp(EliteBookRewardAmount, 0, 20),
-        Math.Clamp(BossBookRewardAmount, 0, 20));
+        Math.Clamp(BossBookRewardAmount, 0, 20), RemainderCompensation);
 
     public void Write(PacketWriter writer)
     {
@@ -45,9 +51,10 @@ public readonly record struct BookRulesSnapshot(
         writer.WriteInt(NormalCombatBookRewardAmount);
         writer.WriteInt(EliteBookRewardAmount);
         writer.WriteInt(BossBookRewardAmount);
+        writer.WriteBool(RemainderCompensation);
     }
 
     public static BookRulesSnapshot Read(PacketReader reader) => new BookRulesSnapshot(
         reader.ReadInt(), reader.ReadInt(), reader.ReadInt(),
-        reader.ReadInt(), reader.ReadInt(), reader.ReadInt()).Sanitized();
+        reader.ReadInt(), reader.ReadInt(), reader.ReadInt(), reader.ReadBool()).Sanitized();
 }

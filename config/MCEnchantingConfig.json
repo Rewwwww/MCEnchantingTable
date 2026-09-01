@@ -1,6 +1,14 @@
 {
-  "schemaVersion": 1,
-  "note": "Generated from 附魔效果整理.xlsx. MCEnchantLevel is separate from original Amount.",
+  "schemaVersion": 2,
+  "bookGain": {
+    "act1NormalCombatsPerReward": 1,
+    "act2NormalCombatsPerReward": 2,
+    "act3NormalCombatsPerReward": 3,
+    "normalCombatBookRewardAmount": 1,
+    "eliteBookRewardAmount": 1,
+    "bossBookRewardAmount": 2,
+    "remainderCompensation": true
+  },
   "candidateGeneration": {
     "bookCountBands": [
       {
@@ -9,7 +17,10 @@
         "slots": [
           {
             "levelWeights": {
-              "I": 1.0
+              "I": 1,
+              "II": 0,
+              "III": 0,
+              "IV": 0
             }
           }
         ]
@@ -20,13 +31,18 @@
         "slots": [
           {
             "levelWeights": {
-              "I": 1.0
+              "I": 1,
+              "II": 0,
+              "III": 0,
+              "IV": 0
             }
           },
           {
             "levelWeights": {
               "I": 0.5,
-              "II": 0.5
+              "II": 0.5,
+              "III": 0,
+              "IV": 0
             }
           }
         ]
@@ -37,19 +53,26 @@
         "slots": [
           {
             "levelWeights": {
-              "I": 1.0
+              "I": 1,
+              "II": 0,
+              "III": 0,
+              "IV": 0
             }
           },
           {
             "levelWeights": {
+              "I": 0,
               "II": 0.7,
-              "III": 0.3
+              "III": 0.3,
+              "IV": 0
             }
           },
           {
             "levelWeights": {
+              "I": 0,
               "II": 0.6,
-              "III": 0.4
+              "III": 0.4,
+              "IV": 0
             }
           }
         ]
@@ -61,17 +84,23 @@
           {
             "levelWeights": {
               "I": 0.3,
-              "II": 0.7
+              "II": 0.7,
+              "III": 0,
+              "IV": 0
             }
           },
           {
             "levelWeights": {
+              "I": 0,
               "II": 0.5,
-              "III": 0.5
+              "III": 0.5,
+              "IV": 0
             }
           },
           {
             "levelWeights": {
+              "I": 0,
+              "II": 0,
               "III": 0.7,
               "IV": 0.3
             }
@@ -80,445 +109,525 @@
       }
     ],
     "repeatWeights": {
-      "firstOccurrence": 1.0,
+      "firstOccurrence": 1,
       "secondOccurrence": 0.5,
       "thirdAndLaterOccurrence": 0.1
     }
   },
-  "cardFilter": {
-    "method": "EnchantmentModel.CanEnchant(CardModel)",
-    "note": "Do not duplicate original enchantment legality checks."
-  },
   "enchantments": [
     {
       "id": "ADROIT",
-      "name": "伶俐",
-      "originalEffect": "打出时获得格挡",
-      "originalAmount": "Amount=3",
-      "target": "基础规则允许的牌",
-      "iconPath": "res://images/enchantments/adroit.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "I",
-        "II",
-        "III",
-        "IV"
-      ],
-      "maxMCLevel": "IV",
-      "amountByLevel": {
-        "I": 3,
-        "II": 5,
-        "III": 7,
-        "IV": 9
+      "levels": {
+        "I": {
+          "enabled": true,
+          "amount": 3
+        },
+        "II": {
+          "enabled": true,
+          "amount": 5
+        },
+        "III": {
+          "enabled": true,
+          "amount": 7
+        },
+        "IV": {
+          "enabled": true,
+          "amount": 9
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/adroit.png"
     },
     {
       "id": "CLONE",
-      "name": "克隆",
-      "originalEffect": "用于克隆火堆选项复制卡牌",
-      "originalAmount": "调用方Amount=4",
-      "target": "基础规则允许的牌",
-      "iconPath": "res://images/enchantments/clone.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "III"
-      ],
-      "maxMCLevel": "III",
-      "amountByLevel": {
-        "III": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": true,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/clone.png"
     },
     {
       "id": "CORRUPTED",
-      "name": "腐化",
-      "originalEffect": "Powered Attack伤害×1.5；打出失去2生命",
-      "originalAmount": "Amount不参与效果",
-      "target": "Attack",
-      "iconPath": "res://images/enchantments/corrupted.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "III"
-      ],
-      "maxMCLevel": "III",
-      "amountByLevel": {
-        "III": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": true,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/corrupted.png"
     },
     {
       "id": "GLAM",
-      "name": "华彩",
-      "originalEffect": "每场战斗第一次打出时重放一次",
-      "originalAmount": "固定效果",
-      "target": "基础规则允许的牌",
-      "iconPath": "res://images/enchantments/glam.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "III"
-      ],
-      "maxMCLevel": "III",
-      "amountByLevel": {
-        "III": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": true,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/glam.png"
     },
     {
       "id": "GOOPY",
-      "name": "黏糊",
-      "originalEffect": "获得消耗；每次打出后永久增加1点格挡",
-      "originalAmount": "初始Amount通常为1",
-      "target": "带CardTag.Defend的牌",
-      "iconPath": "res://images/enchantments/goopy.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "I"
-      ],
-      "maxMCLevel": "I",
-      "amountByLevel": {
-        "I": 1
+      "levels": {
+        "I": {
+          "enabled": true,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": false,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/goopy.png"
     },
     {
       "id": "IMBUED",
-      "name": "注能",
-      "originalEffect": "每场战斗开始时自动打出",
-      "originalAmount": "Amount不参与效果",
-      "target": "Skill",
-      "iconPath": "res://images/enchantments/imbued.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "III"
-      ],
-      "maxMCLevel": "III",
-      "amountByLevel": {
-        "III": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": true,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/imbued.png"
     },
     {
       "id": "INKY",
-      "name": "墨影",
-      "originalEffect": "打出时施加1层虚弱；群体牌对所有敌人施加",
-      "originalAmount": "固定1层",
-      "target": "基础规则允许的牌",
-      "iconPath": "res://images/enchantments/inky.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "II"
-      ],
-      "maxMCLevel": "II",
-      "amountByLevel": {
-        "II": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": true,
+          "amount": 1
+        },
+        "III": {
+          "enabled": false,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/inky.png"
     },
     {
       "id": "INSTINCT",
-      "name": "本能",
-      "originalEffect": "Powered Attack伤害翻倍",
-      "originalAmount": "Amount不参与效果",
-      "target": "Attack",
-      "iconPath": "res://images/enchantments/instinct.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "IV"
-      ],
-      "maxMCLevel": "IV",
-      "amountByLevel": {
-        "IV": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": false,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": true,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/instinct.png"
     },
     {
       "id": "MOMENTUM",
-      "name": "动量",
-      "originalEffect": "每次打出后本场战斗伤害增加Amount",
-      "originalAmount": "观察到1、5",
-      "target": "Attack",
-      "iconPath": "res://images/enchantments/momentum.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "II",
-        "III",
-        "IV"
-      ],
-      "maxMCLevel": "IV",
-      "amountByLevel": {
-        "II": 1,
-        "III": 3,
-        "IV": 5
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": true,
+          "amount": 1
+        },
+        "III": {
+          "enabled": true,
+          "amount": 3
+        },
+        "IV": {
+          "enabled": true,
+          "amount": 5
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/momentum.png"
     },
     {
       "id": "NIMBLE",
-      "name": "灵巧",
-      "originalEffect": "卡牌产生的格挡增加Amount",
-      "originalAmount": "观察到2",
-      "target": "GainsBlock牌",
-      "iconPath": "res://images/enchantments/nimble.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "I",
-        "II",
-        "III",
-        "IV"
-      ],
-      "maxMCLevel": "IV",
-      "amountByLevel": {
-        "I": 1,
-        "II": 3,
-        "III": 5,
-        "IV": 7
+      "levels": {
+        "I": {
+          "enabled": true,
+          "amount": 1
+        },
+        "II": {
+          "enabled": true,
+          "amount": 3
+        },
+        "III": {
+          "enabled": true,
+          "amount": 5
+        },
+        "IV": {
+          "enabled": true,
+          "amount": 7
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/nimble.png"
     },
     {
       "id": "PERFECT_FIT",
-      "name": "完美契合",
-      "originalEffect": "非初始洗牌时放到抽牌堆顶",
-      "originalAmount": "Amount不参与效果",
-      "target": "基础规则允许的牌",
-      "iconPath": "res://images/enchantments/perfect_fit.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "II"
-      ],
-      "maxMCLevel": "II",
-      "amountByLevel": {
-        "II": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": true,
+          "amount": 1
+        },
+        "III": {
+          "enabled": false,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/perfect_fit.png"
     },
     {
       "id": "ROYALLY_APPROVED",
-      "name": "王室认证",
-      "originalEffect": "获得固有和保留",
-      "originalAmount": "Amount不参与效果",
-      "target": "Attack、Skill",
-      "iconPath": "res://images/enchantments/royally_approved.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "IV"
-      ],
-      "maxMCLevel": "IV",
-      "amountByLevel": {
-        "IV": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": false,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": true,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/royally_approved.png"
     },
     {
       "id": "SHARP",
-      "name": "锋利",
-      "originalEffect": "Powered Attack伤害增加Amount",
-      "originalAmount": "观察到2、3",
-      "target": "Attack",
-      "iconPath": "res://images/enchantments/sharp.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "I",
-        "II",
-        "III",
-        "IV"
-      ],
-      "maxMCLevel": "IV",
-      "amountByLevel": {
-        "I": 1,
-        "II": 3,
-        "III": 5,
-        "IV": 7
+      "levels": {
+        "I": {
+          "enabled": true,
+          "amount": 1
+        },
+        "II": {
+          "enabled": true,
+          "amount": 3
+        },
+        "III": {
+          "enabled": true,
+          "amount": 5
+        },
+        "IV": {
+          "enabled": true,
+          "amount": 7
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/sharp.png"
     },
     {
       "id": "SLITHER",
-      "name": "蛇行",
-      "originalEffect": "抽到时费用随机变为0～3",
-      "originalAmount": "Amount不参与效果",
-      "target": "非X费、非不可打出卡",
-      "iconPath": "res://images/enchantments/slither.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "III"
-      ],
-      "maxMCLevel": "III",
-      "amountByLevel": {
-        "III": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": true,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/slither.png"
     },
     {
       "id": "SLUMBERING_ESSENCE",
-      "name": "沉眠精华",
-      "originalEffect": "回合结束仍在手中时费用降低1直到打出",
-      "originalAmount": "固定减1",
-      "target": "基础规则允许的牌",
-      "iconPath": "res://images/enchantments/slumbering_essence.png",
-      "iconSize": "160×152",
-      "availableLevels": [
-        "I"
-      ],
-      "maxMCLevel": "I",
-      "amountByLevel": {
-        "I": 1
+      "levels": {
+        "I": {
+          "enabled": true,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": false,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/slumbering_essence.png"
     },
     {
       "id": "SOULS_POWER",
-      "name": "灵魂之力",
-      "originalEffect": "移除卡牌本地来源的消耗",
-      "originalAmount": "Amount不参与效果",
-      "target": "具有本地Exhaust的牌",
-      "iconPath": "res://images/enchantments/souls_power.png",
-      "iconSize": "160×152",
-      "availableLevels": [
-        "IV"
-      ],
-      "maxMCLevel": "IV",
-      "amountByLevel": {
-        "IV": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": false,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": true,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/souls_power.png"
     },
     {
       "id": "SOWN",
-      "name": "播种",
-      "originalEffect": "每场战斗第一次打出时获得Amount能量",
-      "originalAmount": "观察到1",
-      "target": "基础规则允许的牌",
-      "iconPath": "res://images/enchantments/sown.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "II"
-      ],
-      "maxMCLevel": "II",
-      "amountByLevel": {
-        "II": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": true,
+          "amount": 1
+        },
+        "III": {
+          "enabled": false,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/sown.png"
     },
     {
       "id": "SPIRAL",
-      "name": "涡旋",
-      "originalEffect": "获得重放1",
-      "originalAmount": "固定重放1",
-      "target": "Basic且带Strike/Defend Tag",
-      "iconPath": "res://images/enchantments/spiral.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "III"
-      ],
-      "maxMCLevel": "III",
-      "amountByLevel": {
-        "III": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": true,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/spiral.png"
     },
     {
       "id": "STEADY",
-      "name": "稳定",
-      "originalEffect": "获得保留",
-      "originalAmount": "Amount不参与效果",
-      "target": "基础规则允许的牌",
-      "iconPath": "res://images/enchantments/steady.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "III"
-      ],
-      "maxMCLevel": "III",
-      "amountByLevel": {
-        "III": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": true,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/steady.png"
     },
     {
       "id": "SWIFT",
-      "name": "迅速",
-      "originalEffect": "每场战斗第一次打出时抽Amount张牌",
-      "originalAmount": "观察到1、2",
-      "target": "基础规则允许的牌",
-      "iconPath": "res://images/enchantments/swift.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "I",
-        "II",
-        "III",
-        "IV"
-      ],
-      "maxMCLevel": "IV",
-      "amountByLevel": {
-        "I": 1,
-        "II": 2,
-        "III": 3,
-        "IV": 4
+      "levels": {
+        "I": {
+          "enabled": true,
+          "amount": 1
+        },
+        "II": {
+          "enabled": true,
+          "amount": 2
+        },
+        "III": {
+          "enabled": true,
+          "amount": 3
+        },
+        "IV": {
+          "enabled": true,
+          "amount": 4
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/swift.png"
     },
     {
       "id": "TEZCATARAS_EMBER",
-      "name": "特兹卡塔拉的余烬",
-      "originalEffect": "费用变为0，伤害+3，获得永恒",
-      "originalAmount": "Amount不参与效果",
-      "target": "基础规则允许的牌",
-      "iconPath": "res://images/enchantments/tezcataras_ember.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "III"
-      ],
-      "maxMCLevel": "III",
-      "amountByLevel": {
-        "III": 1
+      "levels": {
+        "I": {
+          "enabled": false,
+          "amount": 1
+        },
+        "II": {
+          "enabled": false,
+          "amount": 1
+        },
+        "III": {
+          "enabled": true,
+          "amount": 1
+        },
+        "IV": {
+          "enabled": false,
+          "amount": 1
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/tezcataras_ember.png"
     },
     {
       "id": "VIGOROUS",
-      "name": "活力",
-      "originalEffect": "每场战斗第一次打出时伤害增加Amount",
-      "originalAmount": "观察到8",
-      "target": "Attack",
-      "iconPath": "res://images/enchantments/vigorous.png",
-      "iconSize": "64×64",
-      "availableLevels": [
-        "I",
-        "II",
-        "III",
-        "IV"
-      ],
-      "maxMCLevel": "IV",
-      "amountByLevel": {
-        "I": 2,
-        "II": 4,
-        "III": 8,
-        "IV": 16
+      "levels": {
+        "I": {
+          "enabled": true,
+          "amount": 2
+        },
+        "II": {
+          "enabled": true,
+          "amount": 4
+        },
+        "III": {
+          "enabled": true,
+          "amount": 8
+        },
+        "IV": {
+          "enabled": true,
+          "amount": 16
+        }
       },
-      "baseWeight": 1.0,
-      "specialParameters": {}
+      "baseWeight": 1,
+      "iconPath": "res://images/enchantments/vigorous.png"
     }
-  ]
+  ],
+  "campfire": {
+    "enabled": true,
+    "healPercent": 10
+  },
+  "ancient": {
+    "enabled": true,
+    "healPercent": 0
+  }
 }

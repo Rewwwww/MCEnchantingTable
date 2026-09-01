@@ -1,4 +1,5 @@
 using System.Globalization;
+using MCEnchantingTable.MCEnchantingTableCode.Compatibility;
 using BaseLib.Abstracts;
 using MCEnchantingTable.MCEnchantingTableCode.Models;
 using MCEnchantingTable.MCEnchantingTableCode.Networking;
@@ -40,6 +41,7 @@ internal static class AncientEnchantController
 
     public static bool CanEnchant(AncientEventModel ancient)
     {
+        if (!EnchantEntranceAdapter.CanShowAncientEnchant()) return false;
         Player? player = ancient.Owner;
         if (player is null || !TryCreateEncounterKey(ancient, out string encounterKey))
         {

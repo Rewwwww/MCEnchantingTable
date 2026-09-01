@@ -1,4 +1,5 @@
 using MCEnchantingTable.MCEnchantingTableCode.Assets;
+using MCEnchantingTable.MCEnchantingTableCode.Compatibility;
 using MCEnchantingTable.MCEnchantingTableCode.Enchanting;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -12,7 +13,6 @@ namespace MCEnchantingTable.MCEnchantingTableCode.RestSite;
 public sealed class EnchantRestSiteOption : RestSiteOption
 {
     public const string Id = "MCENCHANTINGTABLE_ENCHANT";
-    private const decimal EnchantHealMaxHpFraction = 0.10m;
     private readonly EnchantSession _session = new();
 
     public override string OptionId => Id;
@@ -67,7 +67,6 @@ public sealed class EnchantRestSiteOption : RestSiteOption
 
     private Task HealAfterEnchant()
     {
-        decimal amount = Owner.Creature.MaxHp * EnchantHealMaxHpFraction;
-        return CreatureCmd.Heal(Owner.Creature, amount);
+        return EnchantEntranceAdapter.ApplyCampfireEnchantSuccess(Owner);
     }
 }

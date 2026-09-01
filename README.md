@@ -13,7 +13,7 @@
 
 ## 版本
 
-0.1.0-alpha
+0.1.2
 
 ## 开发环境
 
@@ -42,7 +42,7 @@ Minecraft-style enchanting system for Slay the Spire 2.
 
 ## Version
 
-0.1.0-alpha
+0.1.2
 
 ## Development
 

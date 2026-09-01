@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Reflection;
 using Godot;
+using MCEnchantingTable.MCEnchantingTableCode.Compatibility;
 using HarmonyLib;
 using MCEnchantingTable.MCEnchantingTableCode.UI;
 using MegaCrit.Sts2.Core.Context;
@@ -19,7 +20,8 @@ internal static class AncientEnchantOptionPatch
     [HarmonyPatch(typeof(NEventLayout), nameof(NEventLayout.SetEvent))]
     private static void AddOption(NEventLayout __instance, EventModel eventModel)
     {
-        if (__instance is not NAncientEventLayout ancientLayout ||
+        if (!EnchantEntranceAdapter.CanShowAncientEnchant() ||
+            __instance is not NAncientEventLayout ancientLayout ||
             eventModel is not AncientEventModel ancient ||
             !LocalContext.IsMe(ancient.Owner) ||
             ancientLayout.GetNodeOrNull<AncientEnchantOption>(AncientEnchantOption.NodeName) is not null)

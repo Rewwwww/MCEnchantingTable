@@ -286,7 +286,8 @@ internal sealed partial class AncientEnchantOption : Button
                 bool committed = await EnchantController.CommitAncientEnchant(_ancient);
                 RefreshState();
                 return committed;
-            });
+            },
+            () => global::MCEnchantingTable.MCEnchantingTableCode.Compatibility.EnchantEntranceAdapter.ApplyAncientEnchantSuccess(player));
         if (confirmed)
         {
             _session.Clear();

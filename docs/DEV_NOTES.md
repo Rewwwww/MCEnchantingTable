@@ -838,3 +838,27 @@ MCEnchantingTable.MCEnchantingTableCode.UI.Enchant.EnchantScreen
 验证方式是实机启动 MCEnchantingTable，并正常进入 `EnchantScreen`。游戏运行时拥有完整的 StS2 与 Mod 依赖程序集上下文，与独立 Headless Export 环境不同。
 
 本限制当前只记录，不修改 `MCEnchantingTable.csproj`、`Private=false` 引用或程序集复制策略。
+
+---
+
+## 2026-08-31 Unified Settings v2 + Stable/Beta
+
+本次实现与审计以 [UNIFIED_SETTINGS_V2.md](UNIFIED_SETTINGS_V2.md) 为准；上文旧 Phase 2A/2D 的冻结配置、临时恢复流程是历史记录，不代表 v2 当前实现。
+
+- 继续使用 BaseLib 3.4.5 的同一个 GameplaySettings 注册与 `user://mod_configs/MCEnchantingTable.cfg`。统一文档通过 `GameplayJson` 字符串属性交给 BaseLib 原有原子保存，不创建第二套设置文件。
+- `config/MCEnchantingConfig.json` 升级 schemaVersion=2，并从同一文件嵌入默认资源。DefaultSettingsFactory 是 Reset/Fallback/Migration 的入口。导出 PCK 中仍为 `res://config/MCEnchantingConfig.json`。
+- 六个旧书本配置名只在首次迁移中读取；v1 availableLevels/amountByLevel 转为四个显式 enabled/amount。全关合法，不再从 maxMCLevel 推断。
+- 22 个附魔的 UsesAmount 已比对两版；8 个数值型，14 个固定效果。GOOPY 初始额外格挡为 Amount−1；INKY 在 Stable 有固定额外伤害而 Beta 没有，这不改变它 UsesAmount=false。
+- 单人后续 BookReward 读取当前配置；已创建奖励不重写。多人书本快照保留，新增余数补偿 SavedProperty 和 lobby payload bool；联机双方必须运行同一 Mod 版本。完整 v2 配置 Host 同步仅预留 SerializeGameplaySettings/Fingerprint，不宣称已实现。
+- 火堆/Ancient 使用同一入口兼容适配；默认 10%/0% 独立治疗。没有增加 SaveRun，没有改变已保存卡牌 Amount、EncounterKey、Session seed 或 Loader。
+- 设置页仍在 BaseLib 原滚动页面内，新增分组、22词条四级勾选、Amount编辑和原版确认弹窗。中文/英文通过 settings_ui 本地化。
+- 纯配置隔离测试 90 项通过；两版真实程序集 RNG 各 1000 次相同种子抽样重复通过。两版序列不同，不承诺跨版本随机序列一致。
+- `dotnet build MCEnchantingTable.csproj --no-restore`：两个 Content 均成功，0 warning / 0 error。
+- `dotnet publish MCEnchantingTable.csproj -c ExportRelease`：退出码 0；Stable、Beta Content 构建成功，共享 PCK `savepack DONE`。
+- 发布产物：Beta Content 2026-08-31 23:29:06，Release Content 23:29:07，PCK 23:29:15（本机时区）。Loader/manifest 未改动，保留旧时间；五项部署文件均与发布目录 SHA-256 相同。
+- 直接只读检查 PCK 索引：40 项资源，config JSON schema=2；中英文 settings_ui 含 v2 Reset 文本；未发现源码、测试、docs、Loader 或 artifacts 进入 PCK。
+- 未运行游戏交互测试。两版设置页布局、Reset交互、附魔治疗、已有存档 Continue、SL和配置改动实效仍按报告矩阵待测；原先多人 Rest UI/Ancient结果同步缺陷仍未在本阶段修复。
+
+新增源码：Config/GameplayConfig、DefaultSettingsFactory、UnifiedSettingsUi；Compatibility/GameVersionCompatibility、EnchantEntranceAdapter；Enchanting/Compatibility/EnchantmentMetadata（及 Godot 自动生成的对应 .uid）。
+
+修改源码：GameplaySettings、MCEnchantmentConfig、EnchantCandidateGenerator、BookRulesSnapshot、StrangeBook、RestSiteEnchantController、EnchantRestSiteOption、AncientEnchantController、AncientEnchantOption、两个入口 Patch。另修改 Content.csproj 嵌入同源默认 JSON、默认 config、两份 settings_ui 和设计文档。没有修改 Loader、原版反编译源码或 BaseLib。

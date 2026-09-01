@@ -1,4 +1,5 @@
 using Godot;
+using MCEnchantingTable.MCEnchantingTableCode.Compatibility;
 using HarmonyLib;
 using MCEnchantingTable.MCEnchantingTableCode.Assets;
 using MCEnchantingTable.MCEnchantingTableCode.RestSite;
@@ -25,9 +26,10 @@ internal static class EnchantRestSiteOptionPatch
             __result.Add(new CloneRestSiteOption(player));
         }
 
-        if (__result.All(option => option.OptionId != EnchantRestSiteOption.Id))
+        if (EnchantEntranceAdapter.CanShowCampfireEnchant() &&
+            __result.All(option => option.OptionId != EnchantRestSiteOption.Id))
         {
-            __result.Add(new EnchantRestSiteOption(player));
+            __result.Add(EnchantEntranceAdapter.CreateCampfireEnchantOption(player));
         }
     }
 

@@ -1,4 +1,5 @@
 using BaseLib.Abstracts;
+using MegaCrit.Sts2.Core.Multiplayer.Game;
 using BaseLib.Patches.UI;
 using BaseLib.Utils;
 using Godot;
@@ -118,20 +119,23 @@ public sealed class StrangeBook : CustomRelicModel, ICustomUiModel
         }
     }
 
-    [SavedProperty] public int Act1NormalCombatsPerReward { get; private set; } = 1;
-    [SavedProperty] public int Act2NormalCombatsPerReward { get; private set; } = 2;
-    [SavedProperty] public int Act3NormalCombatsPerReward { get; private set; } = 3;
-    [SavedProperty] public int NormalCombatBookRewardAmount { get; private set; } = 1;
-    [SavedProperty] public int EliteBookRewardAmount { get; private set; } = 1;
-    [SavedProperty] public int BossBookRewardAmount { get; private set; } = 2;
+    [SavedProperty] public int Act1NormalCombatsPerReward { get; private set; } = BookRulesSnapshot.Defaults.Act1NormalCombatsPerReward;
+    [SavedProperty] public int Act2NormalCombatsPerReward { get; private set; } = BookRulesSnapshot.Defaults.Act2NormalCombatsPerReward;
+    [SavedProperty] public int Act3NormalCombatsPerReward { get; private set; } = BookRulesSnapshot.Defaults.Act3NormalCombatsPerReward;
+    [SavedProperty] public int NormalCombatBookRewardAmount { get; private set; } = BookRulesSnapshot.Defaults.NormalCombatBookRewardAmount;
+    [SavedProperty] public int EliteBookRewardAmount { get; private set; } = BookRulesSnapshot.Defaults.EliteBookRewardAmount;
+    [SavedProperty] public int BossBookRewardAmount { get; private set; } = BookRulesSnapshot.Defaults.BossBookRewardAmount;
+    [SavedProperty] public bool RemainderCompensation { get; private set; } = BookRulesSnapshot.Defaults.RemainderCompensation;
 
-    public BookRulesSnapshot Rules => new BookRulesSnapshot(
+    public BookRulesSnapshot Rules => !RunManager.Instance.NetService.Type.IsMultiplayer()
+        ? BookRulesSnapshot.FromGlobalSettings()
+        : new BookRulesSnapshot(
         Act1NormalCombatsPerReward,
         Act2NormalCombatsPerReward,
         Act3NormalCombatsPerReward,
         NormalCombatBookRewardAmount,
         EliteBookRewardAmount,
-        BossBookRewardAmount).Sanitized();
+        BossBookRewardAmount, RemainderCompensation).Sanitized();
 
     public void ApplyRulesSnapshot(BookRulesSnapshot snapshot)
     {
@@ -143,6 +147,7 @@ public sealed class StrangeBook : CustomRelicModel, ICustomUiModel
         NormalCombatBookRewardAmount = snapshot.NormalCombatBookRewardAmount;
         EliteBookRewardAmount = snapshot.EliteBookRewardAmount;
         BossBookRewardAmount = snapshot.BossBookRewardAmount;
+        RemainderCompensation = snapshot.RemainderCompensation;
         ProgressDisplayChanged?.Invoke();
     }
 
@@ -250,6 +255,6 @@ public sealed class StrangeBook : CustomRelicModel, ICustomUiModel
         }
 
         NormalCombatProgress = 0;
-        return Rules.NormalCombatBookRewardAmount;
+        return Rules.RemainderCompensation ? Rules.NormalCombatBookRewardAmount : 0;
     }
 }

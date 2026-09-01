@@ -9,6 +9,7 @@
   <PropertyGroup Condition="'$(StS2Target)' == 'Beta'"><Sts2ReferenceDir>$(BetaSts2DataDir)</Sts2ReferenceDir><DefineConstants>$(DefineConstants);STS2_BETA</DefineConstants><CompatibilityFamily>beta</CompatibilityFamily></PropertyGroup>
   <PropertyGroup Condition="'$(StS2Target)' == 'Release'"><Sts2ReferenceDir>$(ReleaseSts2DataDir)</Sts2ReferenceDir><DefineConstants>$(DefineConstants);STS2_RELEASE</DefineConstants><CompatibilityFamily>release</CompatibilityFamily></PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="config\MCEnchantingConfig.json" LogicalName="MCEnchantingTable.GameplayDefaults.json" />
     <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute"><_Parameter1>MCEnchantingTableCompatibilityFamily</_Parameter1><_Parameter2>$(CompatibilityFamily)</_Parameter2></AssemblyAttribute>
     <Reference Include="sts2"><HintPath>$(Sts2ReferenceDir)\sts2.dll</HintPath><Private>false</Private></Reference>
     <Reference Include="0Harmony"><HintPath>$(SharedGameDataDir)\0Harmony.dll</HintPath><Private>false</Private></Reference>

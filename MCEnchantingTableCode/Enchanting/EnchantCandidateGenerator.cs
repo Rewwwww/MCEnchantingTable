@@ -21,6 +21,7 @@ internal sealed class EnchantCandidateGenerator
             List<MCEnchantmentConfig.Entry> legalEntries = MCEnchantmentConfig.Entries
                 .Where(entry =>
                     entry.TryGetAmount(level, out _) &&
+                    GetWeight(entry, selectedNameCounts, config.RepeatWeights) > 0 &&
                     entry.CanonicalModel.CanEnchant(card) &&
                     IsMcCompatible(entry, card) &&
                     results.All(candidate =>

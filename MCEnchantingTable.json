@@ -3,7 +3,7 @@
   "name": "MC附魔台",
   "author": "然而问",
   "description": "为《杀戮尖塔2》加入 Minecraft 风格的卡牌附魔系统。收集书本提升可附魔等级，并在篝火或先古之民处为卡牌赋予独特的附魔效果。\n\nAdds a Minecraft-inspired card enchanting system to Slay the Spire 2. Collect books to unlock higher enchantment tiers, then enchant your cards at Rest Sites or Ancient locations with unique effects.",
-  "version": "v0.1.0",
+  "version": "v0.1.2",
   "min_game_version": "0.107.0",
   "has_pck": true,
   "has_dll": true,

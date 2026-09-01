@@ -1,4 +1,5 @@
 using System.Globalization;
+using MCEnchantingTable.MCEnchantingTableCode.Compatibility;
 using MCEnchantingTable.MCEnchantingTableCode.Models;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Runs;
@@ -8,6 +9,7 @@ namespace MCEnchantingTable.MCEnchantingTableCode.RestSite;
 internal static class RestSiteEnchantController
 {
     public static bool CanEnchant(Player player) =>
+        EnchantEntranceAdapter.CanShowCampfireEnchant() &&
         TryCreateEncounterKey(player, out string encounterKey) &&
         FindStrangeBook(player)?.HasRestSiteEnchantOpportunity(encounterKey) == true;
 

@@ -1,0 +1,35 @@
+[1mdiff --git a/MCEnchantingTable.json b/MCEnchantingTable.json[m
+[1mindex 80b7116..d687ff8 100644[m
+[1m--- a/MCEnchantingTable.json[m
+[1m+++ b/MCEnchantingTable.json[m
+[36m@@ -3,7 +3,7 @@[m
+   "name": "MC附魔台",[m
+   "author": "然而问",[m
+   "description": "为《杀戮尖塔2》加入 Minecraft 风格的卡牌附魔系统。收集书本提升可附魔等级，并在篝火或先古之民处为卡牌赋予独特的附魔效果。\n\nAdds a Minecraft-inspired card enchanting system to Slay the Spire 2. Collect books to unlock higher enchantment tiers, then enchant your cards at Rest Sites or Ancient locations with unique effects.",[m
+[31m-  "version": "v0.1.0",[m
+[32m+[m[32m  "version": "v0.1.2",[m
+   "min_game_version": "0.107.0",[m
+   "has_pck": true,[m
+   "has_dll": true,[m
+[1mdiff --git a/README.md b/README.md[m
+[1mindex 030a8c0..7c249ac 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -13,7 +13,7 @@[m
+ [m
+ ## 版本[m
+ [m
+[31m-0.1.0-alpha[m
+[32m+[m[32m0.1.2[m
+ [m
+ ## 开发环境[m
+ [m
+[36m@@ -42,7 +42,7 @@[m [mMinecraft-style enchanting system for Slay the Spire 2.[m
+ [m
+ ## Version[m
+ [m
+[31m-0.1.0-alpha[m
+[32m+[m[32m0.1.2[m
+ [m
+ ## Development[m
+ [m
